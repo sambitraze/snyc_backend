@@ -6,6 +6,7 @@ const redisClient = require("./utils/redisClient");
 const connectDB = require("./utils/db");
 const Message = require("./models/Message");
 const chatRoutes = require("./routes/chatRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 require("dotenv").config();
 
@@ -28,6 +29,7 @@ app.use(express.json());
 
 // API Routes
 app.use("/api/chats", chatRoutes);
+app.use("/", userRoutes);
 
 // Handle Socket.IO connections
 io.on("connection", (socket) => {
