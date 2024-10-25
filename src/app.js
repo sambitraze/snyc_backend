@@ -2,10 +2,10 @@
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
-const mongoose = require("mongoose");
-const redisClient = require("./redisClient");
-const connectDB = require("./db");
-const Message = require("../src/models/message");
+const redisClient = require("./utils/redisClient");
+const connectDB = require("./utils/db");
+const Message = require("./models/Message");
+const chatRoutes = require("./routes/chatRoutes");
 
 require("dotenv").config();
 
@@ -25,6 +25,9 @@ redisClient.connect();
 
 // Middleware
 app.use(express.json());
+
+// API Routes
+app.use("/api/chats", chatRoutes);
 
 // Handle Socket.IO connections
 io.on("connection", (socket) => {
